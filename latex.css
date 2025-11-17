@@ -1,0 +1,411 @@
+@charset "UTF-8";
+
+/* ========== 预览模式正文基础 ========== */
+
+.markdown-preview-view {
+  /* 不设置 font-family，保持主题默认字体 */
+  font-size: 9.5pt;
+  line-height: 1.618em;
+  /* 如果不需要纸张效果，可以自行删除下面三行 */
+  max-width: 21cm;
+  margin: 0 auto;
+  padding: 1.8cm 2cm 1.2cm 2cm;
+  background-color: white;
+}
+
+/* 段落 */
+.markdown-preview-view p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: left;
+}
+
+/* 链接颜色（仅预览） */
+.markdown-preview-view a {
+  color: #2e67d3;
+}
+
+/* 分割线 */
+.markdown-preview-view hr {
+  border-top: solid 1px #ddd;
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
+}
+
+/* 粗体权重（仅预览） */
+.markdown-preview-view strong {
+  font-weight: 900;
+}
+
+/* 打印 / 导出 PDF 时的页边距和分页控制 */
+@media print {
+  .markdown-preview-view {
+    padding: 0 !important;
+  }
+
+  .markdown-preview-view h2 {
+    break-before: auto;
+  }
+
+  .markdown-preview-view h2:first-of-type {
+    break-before: avoid-page;
+  }
+
+  @page {
+    margin: 1.8cm 2cm 1.2cm 2cm !important;
+  }
+}
+
+/* ========== 标题样式 & 自动编号（仅预览）========== */
+
+/* 重置计数器 */
+.markdown-preview-view {
+  counter-reset: heading-h2 heading-h3 heading-h4 heading-h5 heading-h6;
+}
+
+/* 所有标题基础设置（只对预览有效） */
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+  font-weight: bold;
+  color: #000000 !important;  /* 所有标题设为黑色 */
+  break-after: avoid-page !important;
+}
+
+/* H1 */
+.markdown-preview-view h1 {
+  text-align: center;
+  column-span: all;
+  font-size: 1.9em;
+  counter-set: heading-h2 0 heading-h3 0 heading-h4 0 heading-h5 0
+    heading-h6 0;
+}
+
+/* H2 */
+.markdown-preview-view h2 {
+  font-size: 1.5em;
+  counter-set: heading-h3 0 heading-h4 0 heading-h5 0 heading-h6 0;
+}
+
+/* H3 */
+.markdown-preview-view h3 {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  counter-set: heading-h4 0 heading-h5 0 heading-h6 0;
+}
+
+/* H4 */
+.markdown-preview-view h4 {
+  font-size: 1.15em;
+  line-height: 1.15em;
+  counter-set: heading-h5 0 heading-h6 0;
+}
+
+/* H5 */
+.markdown-preview-view h5 {
+  font-size: 1.10em;
+  line-height: 1.10em;
+  counter-set: heading-h6 0;
+}
+
+/* H6 */
+.markdown-preview-view h6 {
+  font-size: 1.05em;
+  line-height: 1.05em;
+}
+
+/* 自动编号：H2-H6 在预览中显示 1, 1.1, 1.1.1... */
+
+/* H2 */
+.markdown-preview-view h2::before {
+  content: counter(heading-h2);
+  counter-increment: heading-h2;
+  margin-right: 1.2em;
+}
+
+/* H3 */
+.markdown-preview-view h3::before {
+  content: counter(heading-h2) "." counter(heading-h3);
+  counter-increment: heading-h3;
+  margin-right: 1.2em;
+}
+
+/* H4 */
+.markdown-preview-view h4::before {
+  content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4);
+  counter-increment: heading-h4;
+  margin-right: 1.2em;
+}
+
+/* H5 */
+.markdown-preview-view h5::before {
+  content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4)
+    "." counter(heading-h5);
+  counter-increment: heading-h5;
+  margin-right: 1.2em;
+}
+
+/* H6 */
+.markdown-preview-view h6::before {
+  content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4)
+    "." counter(heading-h5) "." counter(heading-h6);
+  counter-increment: heading-h6;
+  margin-right: 1.2em;
+}
+/* ========== 列表样式（仅预览） ========== */
+/* 适当缩小缩进：由 2em 改为 1.4em 左右 */
+
+/* 基础无序列表 */
+.markdown-preview-view ul {
+  padding-inline-start: 1.4em !important;
+  margin-block: 0.4em 0.4em;
+}
+
+/* 一级无序列表使用圆点 */
+.markdown-preview-view ul > li {
+  list-style-type: disc;
+}
+
+/* 二级无序列表：用短横线符号模拟，缩进更小 */
+.markdown-preview-view ul ul {
+  padding-inline-start: 1.1em !important;
+}
+
+.markdown-preview-view ul ul > li {
+  list-style-type: none;
+  position: relative;
+}
+
+.markdown-preview-view ul ul > li::marker {
+  content: "";
+}
+
+.markdown-preview-view ul ul > li::before {
+  content: "–";
+  position: absolute;
+  left: -1em;
+}
+
+/* 三级无序列表：用小圆点符号模拟 */
+.markdown-preview-view ul ul ul {
+  padding-inline-start: 1em !important;
+}
+
+.markdown-preview-view ul ul ul > li {
+  list-style-type: none;
+  position: relative;
+}
+
+.markdown-preview-view ul ul ul > li::marker {
+  content: "";
+}
+
+.markdown-preview-view ul ul ul > li::before {
+  content: "◦";
+  position: absolute;
+  left: -1em;
+}
+
+/* 有序列表 */
+.markdown-preview-view ol {
+  padding-inline-start: 1.4em !important;
+  margin-block: 0.4em 0.4em;
+}
+
+/* 二级有序列表 (a) (b) ... */
+.markdown-preview-view ol ol {
+  counter-reset: liist;
+  list-style: none;
+  margin: 0.2em 0;
+  padding-inline-start: 1.4em;
+}
+
+.markdown-preview-view ol ol > li {
+  counter-increment: liist;
+  position: relative;
+}
+
+.markdown-preview-view ol ol > li::marker {
+  content: "";
+}
+
+.markdown-preview-view ol ol > li::before {
+  content: "(" counter(liist, lower-alpha) ")";
+  position: absolute;
+  left: -1.6em;
+}
+
+/* 三级有序列表 i. ii. ... */
+.markdown-preview-view ol ol ol {
+  counter-reset: liiist;
+  list-style: none;
+  margin: 0.2em 0;
+  padding-inline-start: 1.8em;
+}
+
+.markdown-preview-view ol ol ol > li {
+  counter-increment: liiist;
+  position: relative;
+}
+
+.markdown-preview-view ol ol ol > li::marker {
+  content: "";
+}
+
+.markdown-preview-view ol ol ol > li::before {
+  content: counter(liiist, lower-roman) ".";
+  position: absolute;
+  left: -3.2em;
+  width: 3em;
+  text-align: right;
+}
+
+/* 列表行距微调（仅预览） */
+.markdown-preview-view li {
+  position: relative;
+}
+
+.markdown-preview-view li + li,
+.markdown-preview-view ul + ol > li,
+.markdown-preview-view ol + ul > li,
+.markdown-preview-view li > ul > li,
+.markdown-preview-view li > ol > li {
+  margin-top: -0.6em;
+}
+
+/* ========== 预览模式隐藏任务列表 ========== */
+.markdown-preview-view li.task-list-item,
+.markdown-preview-view .task-list-item-checkbox {
+  display: none !important;
+}
+
+/* ========== 引用样式（仅预览，学术风格） ========== */
+/*
+ * 去掉 Obsidian 主题自带的背景和粗边框，
+ * 使用细灰竖线 + 左右适度缩进 + 斜体，模仿论文/书籍中的引用样式。
+ */
+
+.markdown-preview-view blockquote {
+  margin: 0.8em 0;
+  padding: 0.1em 1.2em;
+  border: none;
+  background: transparent;
+
+  color: inherit;
+  font-style: italic;             /* 学术风格常用斜体引用 */
+}
+
+/* 嵌套引用：缩进略小，不额外加背景或边框，只保持竖线 */
+.markdown-preview-view blockquote blockquote {
+  margin-left: 0;
+  padding-left: 1em;
+}
+
+/* ========== 表格（预览模式，宽度适中且线条对齐） ========== */
+
+/* 让外层容器不要强制 100% 宽 */
+.markdown-preview-view .markdown-preview-section table,
+.markdown-preview-view .markdown-preview-section .table,
+.markdown-preview-view .markdown-preview-section .table-wrapper {
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+/* 统一在 table 上控制宽度与边框 */
+.markdown-preview-view table {
+  table-layout: auto !important;
+  margin: 0.5em auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+
+  border-collapse: collapse;
+  border-spacing: 0 !important;
+
+  border-top: 1.2pt solid currentColor;
+  border-bottom: 1.2pt solid currentColor;
+}
+
+.markdown-preview-view table th,
+.markdown-preview-view table td {
+  padding: 4px 8px;
+  white-space: normal;
+  text-align: center;
+
+  border: none;
+}
+
+.markdown-preview-view thead th {
+  font-weight: 900;
+  border-bottom: 0.8pt solid currentColor;  // 只在表头下面画线
+}
+
+/* ========== 代码样式（仅预览） ========== */
+
+/* 行内代码（预览） */
+.markdown-preview-view code {
+  /* 不改 font-family，让主题决定 */
+  color: rgb(60, 112, 198);
+  background-color: #fefefe;
+  box-shadow: 0 0 1px 1px #c8d3df;
+  box-sizing: border-box;
+  margin: 0 2px;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* 代码块（预览） */
+.markdown-preview-view pre code {
+  font-size: 1em;
+}
+
+/* ========== 脚注样式（仅预览） ========== */
+
+/* 上标脚注 */
+.markdown-preview-view sup.footnote-ref {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.markdown-preview-view sup.footnote-ref a {
+  color: inherit !important;
+}
+
+.markdown-preview-view sup.footnote-ref {
+  margin-inline: -0.44em;
+}
+
+.markdown-preview-view sup.footnote-ref::before {
+  content: "［";
+}
+
+.markdown-preview-view sup.footnote-ref::after {
+  content: "］";
+}
+
+/* 文末脚注区域 */
+.markdown-preview-view section.footnotes {
+  padding-inline-start: 2.5em;
+}
+
+.markdown-preview-view section.footnotes > hr {
+  display: none;
+}
+
+.markdown-preview-view section.footnotes ol {
+  margin-top: 0.5em;
+}
+
+.markdown-preview-view section.footnotes li {
+  font-size: 0.95em;
+}
+
+.markdown-preview-view section.footnotes li::marker {
+  content: "";
+}
+
