@@ -29,7 +29,6 @@ section {
 h1, h2, h3 {
   font-family: "Source Han Serif CN", "思源宋体", serif;
   color: var(--color-primary);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 h1 strong, h2 strong, h3 strong{
